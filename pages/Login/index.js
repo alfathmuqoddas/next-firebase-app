@@ -49,7 +49,7 @@ export default function Login() {
 						<input type="submit" className="btn btn-primary" value="Login" />
 					</div>
 				</form>
-				<p className="text-center m-0 pt-2">Doesn't have an account? Register <Link href="/Register">here</Link></p>
+				<p className="text-center m-0 pt-2">Register <Link href="/Register">here</Link></p>
 				</div>
 			</div>
 			</div>
