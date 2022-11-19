@@ -36,7 +36,7 @@ export default function Login() {
 				<h3 className="text-center">You Already Logged In</h3>
 			</div>
 			:
-			<div className="mx-auto p-3 w-100" style={{"maxWidth": "400px"}}>
+			<div className="mx-auto p-3 w-100" style={{maxWidth: "400px"}}>
 			<div className="card">
 				<div className="card-body">
 				<h3 className="text-center mb-5">Login to Next Firebase App</h3>

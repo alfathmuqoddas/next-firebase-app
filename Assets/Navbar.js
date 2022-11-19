@@ -28,7 +28,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbar-btn">
-                <label for="navbar-check">
+                <label htmlFor="navbar-check">
                 <span></span>
                 <span></span>
                 <span></span>
