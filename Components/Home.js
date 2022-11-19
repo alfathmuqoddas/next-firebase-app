@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import {collection, orderBy, query, onSnapshot, addDoc} from 'firebase/firestore';
 import {app, db, auth, } from './Firebase'
+import { lowBadge, medBadge, hiBadge } from "./Firebase";
 
 const Home = () => {
-    const lowBadge = 'badge bg-success';
-    const medBadge ='badge bg-warning';
-    const hiBadge = 'badge bg-danger';
 
     const [tasks, setTasks ] = useState([]);
 	const [loading, setLoading] = useState(true);

@@ -14,3 +14,7 @@ const firebaseConfig = {
   export const app = initializeApp(firebaseConfig);
   export const db = getFirestore();
   export const auth = getAuth();
+
+  export const lowBadge = 'badge bg-success';
+  export const medBadge ='badge bg-warning';
+  export const hiBadge = 'badge bg-danger';
