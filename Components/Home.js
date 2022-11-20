@@ -23,7 +23,7 @@ const Home = () => {
 	}, []);
 
     return (
-        <div className="container">
+        <div className="container-fluid">
       		<div className="row row-cols-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-6">
 				{ loading ? 
 					<div className="text-center py-5"><h1>Loading...</h1></div>
