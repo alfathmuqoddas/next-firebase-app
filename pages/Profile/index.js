@@ -5,6 +5,8 @@ import { collection, orderBy, query, onSnapshot, doc, deleteDoc, where } from 'f
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Components/Firebase";
 import { lowBadge, medBadge, hiBadge } from "../../Components/Firebase";
+import ProductTable from "./ProductTable";
+import ProfileInfo from "./ProfileInfo";
 
 const Profile = () => {
 
@@ -15,18 +17,20 @@ const Profile = () => {
 		await deleteDoc(doc(db, "tasks", id));
 	};
 	//above to delete task
-	const [tasks, setTasks ] = useState([]);
+	const [products, setProducts ] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	onAuthStateChanged(auth, (user) => {
 	  if (user) {
     	// below is for diplaying task / data from db
-		const q = query(collection(db, "tasks"), where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+		const q = query(collection(db, "list-of-things"), orderBy("createdAt", "shortdesc"));
 		const unsub = onSnapshot(q, (querySnapshot) => {
-			let taskArray = [];
+			let productArray = [];
 			querySnapshot.forEach((doc) => {
-				taskArray.push({...doc.data(), id: doc.id});
+				productArray.push({...doc.data(), id: doc.id});
 			});
-			setTasks(taskArray);
+			setProducts(productArray);
+			setLoading(false);
 		});
 		return () => unsub();
 		// above is for diplaying task / data from db
@@ -40,37 +44,24 @@ const Profile = () => {
         <Layout>
           { user ? 
 				<>
-					<div className="container my-5">
-						<h3 className="text-center">User Profile</h3>
-						<p>{user.displayName}</p>
-						<img src={user.photoURL} alt="profile-picture" />
-						<p>{user.email}</p>
-						<Link href="/edit-profile"><button className="btn btn-primary text-light">Edit Profile</button></Link>
-					</div>
-                    <div className="table-responsive">
-                    <table className="table container">
-                        <thead>
-                            <tr>
-                                <th scope="col">Issue ID</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Asignee</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { tasks.map((task) =>(
-                            <tr key={task.id}>
-                                <th scope="row">{task.IssueID}</th>
-                                <td>{task.title}</td>
-                                <td><p className={task.sev === 'Low' ? lowBadge : task.sev === 'Medium' ? medBadge : hiBadge }>{task.sev}</p></td>
-                                <td>{task.desc}</td>
-                                <td><button onClick={() => handleDelete(task.id)} className="btn btn-sm btn-danger">🗑️</button></td>
-                            </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    </div>
+					<ProfileInfo 
+						photoURL={user.photoURL}
+						displayName={user.displayName}
+						email={user.email}
+					/>	
+                    <ProductTable body=
+						{ products.map((product) =>(
+						<tr key={product.id}>
+							<th scope="row">{product.productId}</th>
+							<td>{product.name}</td>
+							<td>{product.shortdesc}</td>
+							<td>{product.thumbnail}</td>
+							<td>{product.category}</td>
+							<td>{product.type}</td>
+							<td><button onClick={() => handleDelete(task.id)} className="btn btn-sm btn-danger">🗑️</button></td>
+						</tr>
+						))}
+					/>
 				</>
 			  	:
 			  	<>

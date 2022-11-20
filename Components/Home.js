@@ -2,41 +2,37 @@ import { useState, useEffect } from 'react';
 import {collection, orderBy, query, onSnapshot, addDoc} from 'firebase/firestore';
 import {app, db, auth, } from './Firebase'
 import { lowBadge, medBadge, hiBadge } from "./Firebase";
+import CardView from '../Assets/CardView';
 
 const Home = () => {
 
-    const [tasks, setTasks ] = useState([]);
+    const [products, setProducts ] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const q = query(collection(db, "tasks"), orderBy("createdAt", "desc"));
+		const q = query(collection(db, "list-of-things"), orderBy("createdAt", "shortdesc"));
 		const unsub = onSnapshot(q, (querySnapshot) => {
-			let taskArray = [];
+			let productArray = [];
 			querySnapshot.forEach((doc) => {
-				taskArray.push({...doc.data(), id: doc.id});
+				productArray.push({...doc.data(), id: doc.id});
 			});
-			setTasks(taskArray);
+			setProducts(productArray);
 			setLoading(false);
 		});
 		return () => unsub();
 	}, []);
 
     return (
-        <div className="mx-auto p-3 w-100" style={{maxWidth: "500px"}}>
+        <div className="container">
+      		<div className="row row-cols-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-6">
 				{ loading ? 
 					<div className="text-center py-5"><h1>Loading...</h1></div>
 					 :
-					tasks.map((task) =>(
-                        <div className="card" key={task.id}>
-                        <div className="card-body">
-                            <p>Issue ID: {task.IssueID}</p>
-                            <h4>Description: {task.title}</h4>
-                            <p className={task.sev === 'Low' ? lowBadge : task.sev === 'Medium' ? medBadge : hiBadge }>{task.sev}</p>
-                            <p>Assigned To: {task.desc}</p>
-                        </div>
-                        </div>
+					products.map((product) =>(
+                        <CardView key={product.id} title={product.name} desc={product.shortdesc.substring(0, 100) + "..."} thumbnail={product.thumbnail} />
 					))
 				}
+			</div>
 		</div>
     )
 }
