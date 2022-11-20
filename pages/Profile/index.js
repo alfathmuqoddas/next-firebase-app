@@ -5,8 +5,8 @@ import { collection, orderBy, query, onSnapshot, doc, deleteDoc, where } from 'f
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Components/Firebase";
 import { lowBadge, medBadge, hiBadge } from "../../Components/Firebase";
-import ProductTable from "./ProductTable";
-import ProfileInfo from "./ProfileInfo";
+import ProductTable from "../../Components/ProductTable";
+import ProfileInfo from "../../Components/ProfileInfo";
 
 const Profile = () => {
 
