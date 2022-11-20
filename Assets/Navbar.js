@@ -20,11 +20,11 @@ const Navbar = () => {
 	}
 
     return (
-        <div className="navbar">
+        <div className="navbar p-0">
             <input type="checkbox" id="navbar-check" />
             <div className="navbar-header">
                 <div className="navbar-title">
-                <Link href="/">Next Firebase App</Link>
+                <Link className="nav-link" href="/">Next Firebase App</Link>
                 </div>
             </div>
             <div className="navbar-btn">
