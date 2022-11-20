@@ -24,7 +24,7 @@ const Navbar = () => {
             <input type="checkbox" id="navbar-check" />
             <div className="navbar-header">
                 <div className="navbar-title">
-                <Link className="nav-link" href="/">Next Firebase App</Link>
+                <Link className="nav-link" href="/">NEXT FIREBASE APP</Link>
                 </div>
             </div>
             <div className="navbar-btn">
@@ -37,12 +37,12 @@ const Navbar = () => {
             {user ? 
               <div className="navbar-links">
                 <Link href="/Profile">{user.displayName || user.email}</Link>
-                <button className="btn btn-danger" onClick={SignOut}>Logout</button> 
+                <Link href="" onClick={SignOut}>LOGOUT</Link> 
               </div>
               :
               <div className="navbar-links">
-                <Link href="/Login">Login</Link>
-                <Link href="/Register">Register</Link>
+                <Link href="/Login">LOGIN</Link>
+                <Link href="/Register">REGISTER</Link>
               </div>  
             }
         </div>
