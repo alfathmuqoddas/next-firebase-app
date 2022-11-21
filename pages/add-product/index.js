@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { auth, db, app } from "../../Components/Firebase";
 
-export default function index() {
+export default function AddProduct() {
   const [formdata, setFormdata] = useState({
     productName: "",
     shortdesc: "",
