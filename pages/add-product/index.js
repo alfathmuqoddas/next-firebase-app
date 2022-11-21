@@ -12,7 +12,7 @@ import {
 import { auth, db, app } from "../../Components/Firebase";
 
 export default function index() {
-  const [state, setState] = useState({
+  const [formdata, setFormdata] = useState({
     productName: "",
     shortdesc: "",
     longdesc: "",
@@ -22,8 +22,8 @@ export default function index() {
   });
 
   const handleInput = (e) => {
-    setState({
-      ...state,
+    setFormdata({
+      ...formdata,
       [e.target.name]: e.target.value,
     });
   };
@@ -43,14 +43,14 @@ export default function index() {
     const { uid } = auth.currentUser;
     //const arr = imgArray.replace(/\s/g, '').match(/.{1,22}/g);
     await addDoc(collection(db, "list-of-things"), {
-      name: state.productName,
-      shortdesc: state.shortdesc,
-      longdesc: state.longdesc,
-      thumbnail: state.thumbnail,
-      category: Number(state.category),
-      type: Number(state.type),
+      name: formdata.productName,
+      shortdesc: formdata.shortdesc,
+      longdesc: formdata.longdesc,
+      thumbnail: formdata.thumbnail,
+      category: Number(formdata.category),
+      type: Number(formdata.type),
       uid,
-      slug: slugify(state.productName),
+      slug: slugify(formdata.productName),
       inStock: true,
       image1: `https://picsum.photos/seed/${randomize()}/1920/1080`,
       image2: `https://picsum.photos/seed/${randomize()}/1920/1080`,
