@@ -15,10 +15,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const q = query(
-      collection(db, "list-of-things"),
-      orderBy("createdAt", "shortdesc")
-    );
+    const q = query(collection(db, "list-of-things"), orderBy("createdAt"));
     const unsub = onSnapshot(q, (querySnapshot) => {
       let productArray = [];
       querySnapshot.forEach((doc) => {

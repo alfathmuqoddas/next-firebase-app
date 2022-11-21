@@ -3,6 +3,7 @@ export default function NewProductForm({ onSubmit, onChange }) {
     <div className="container-fluid">
       <div className="card mx-auto w-100 my-5" style={{ maxWidth: "500px" }}>
         <div className="card-body">
+          <h3>Add New Product</h3>
           <form className="" onSubmit={onSubmit}>
             <label htmlFor="product-name">Product Name</label>
             <input
@@ -43,7 +44,8 @@ export default function NewProductForm({ onSubmit, onChange }) {
               className="form-control form-control-sm mb-2"
               onChange={onChange}
               placeholder="Input Product Category"
-              type="text"
+              type="number"
+              max="10"
             />
             <label htmlFor="type">Product Type</label>
             <input
@@ -51,7 +53,8 @@ export default function NewProductForm({ onSubmit, onChange }) {
               className="form-control form-control-sm mb-2"
               onChange={onChange}
               placeholder="Input Product Type"
-              type="text"
+              type="number"
+              max="10"
             />
             <div className="d-grid">
               <input type="submit" className="btn btn-primary" value="Submit" />

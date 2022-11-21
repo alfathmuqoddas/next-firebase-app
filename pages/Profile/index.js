@@ -1,6 +1,6 @@
 import Layout from "../../Assets/Layout";
-import { useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+//import Link from "next/link";
 import {
   collection,
   orderBy,
@@ -8,7 +8,6 @@ import {
   onSnapshot,
   doc,
   deleteDoc,
-  where,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Components/Firebase";
@@ -21,7 +20,7 @@ const Profile = () => {
 
   //belw to delete task
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "tasks", id));
+    await deleteDoc(doc(db, "list-of-things", id));
   };
   //above to delete task
   const [products, setProducts] = useState([]);
@@ -30,10 +29,7 @@ const Profile = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // below is for diplaying task / data from db
-      const q = query(
-        collection(db, "list-of-things"),
-        orderBy("createdAt", "shortdesc")
-      );
+      const q = query(collection(db, "list-of-things"), orderBy("createdAt"));
       const unsub = onSnapshot(q, (querySnapshot) => {
         let productArray = [];
         querySnapshot.forEach((doc) => {
@@ -64,7 +60,7 @@ const Profile = () => {
               <tr key={product.id}>
                 <th scope="row">{product.productId}</th>
                 <td>{product.name}</td>
-                <td>{product.shortdesc.substring(0, 100) + "..."}</td>
+                <td>{product.shortdesc.substring(0, 50) + "..."}</td>
                 <td>
                   <a href={product.thumbnail}>thumbnail link</a>
                 </td>
@@ -72,7 +68,7 @@ const Profile = () => {
                 <td>{product.type}</td>
                 <td>
                   <button
-                    onClick={() => handleDelete(task.id)}
+                    onClick={() => handleDelete(product.id)}
                     className="btn btn-sm btn-danger"
                   >
                     🗑️

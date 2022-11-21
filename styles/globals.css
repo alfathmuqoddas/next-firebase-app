@@ -4,6 +4,8 @@
 
 body {
   margin: 0px;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.9rem !important;
 }
 
 .navbar {
@@ -19,7 +21,7 @@ body {
 
 .navbar > .navbar-header > .navbar-title {
   display: inline-block;
-  font-size: 22px;
+  font-size: 1.5rem;
   color: #fff;
   padding: 10px;
 }
@@ -31,7 +33,7 @@ body {
 .navbar > .navbar-links {
   display: inline;
   float: right;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .navbar > .navbar-links > a {
@@ -49,7 +51,7 @@ body {
   display: none;
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .navbar > .navbar-btn {
     display: inline-block;
     position: absolute;
@@ -62,7 +64,8 @@ body {
     height: 50px;
     padding: 13px;
   }
-  .navbar > .navbar-btn > label:hover,.navbar  #navbar-check:checked ~ .navbar-btn > label {
+  .navbar > .navbar-btn > label:hover,
+  .navbar #navbar-check:checked ~ .navbar-btn > label {
     background-color: rgba(0, 0, 0, 0.3);
   }
   .navbar > .navbar-btn > label > span {
