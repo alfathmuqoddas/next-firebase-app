@@ -1,13 +1,13 @@
 export default function NewProductForm({ onSubmit, onChange }) {
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="card mx-auto w-100 my-5" style={{ maxWidth: "500px" }}>
         <div className="card-body">
           <h3>Add New Product</h3>
           <form className="" onSubmit={onSubmit}>
             <label htmlFor="product-name">Product Name</label>
             <input
-              name="productName"
+              name="name"
               onChange={onChange}
               className="form-control form-control-sm mb-2"
               placeholder="Input Product Name"

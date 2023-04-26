@@ -9,24 +9,25 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../Components/Firebase";
-import { lowBadge, medBadge, hiBadge } from "../../Components/Firebase";
 import ProductTable from "../../Components/ProductTable";
 import ProfileInfo from "../../Components/ProfileInfo";
 
 const Profile = () => {
-  const user = auth.currentUser;
-
   //belw to delete task
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "list-of-things", id));
+    if (confirm("Are you sure want to delete this post?")) {
+      await deleteDoc(doc(db, "list-of-things", id));
+    } else {
+      //do nothing
+    }
   };
   //above to delete task
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  onAuthStateChanged(auth, (user) => {
+  auth.onAuthStateChanged((user) => {
     if (user) {
       // below is for diplaying task / data from db
       const q = query(collection(db, "list-of-things"), orderBy("createdAt"));
@@ -36,6 +37,7 @@ const Profile = () => {
           productArray.push({ ...doc.data(), id: doc.id });
         });
         setProducts(productArray);
+        setUser(user);
         setLoading(false);
       });
       return () => unsub();

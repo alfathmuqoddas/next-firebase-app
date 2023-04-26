@@ -24,7 +24,7 @@ const Home = () => {
       setProducts(productArray);
       setLoading(false);
     });
-    return () => unsub();
+    return unsub;
   }, []);
 
   return (
@@ -39,7 +39,11 @@ const Home = () => {
             <CardView
               key={product.id}
               title={product.name}
-              desc={product.shortdesc.substring(0, 100) + "..."}
+              desc={
+                product.shortdesc > 32
+                  ? product.shortdesc.substring(0, 100) + "..."
+                  : product.shortdesc
+              }
               thumbnail={product.thumbnail}
             />
           ))

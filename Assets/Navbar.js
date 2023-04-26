@@ -1,17 +1,26 @@
 //import styles from "./Navbar.module.css"
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../Components/Firebase";
-import { signOut } from "firebase/auth";
+import { auth, signOutFunc } from "../Components/Firebase";
 
 const Navbar = () => {
-  const user = auth.currentUser;
   const router = useRouter();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const SignOut = (e) => {
     e.preventDefault();
     if (confirm("Are you sure want to Logout?")) {
-      signOut(auth).then(() => {
+      signOutFunc(auth).then(() => {
         router.push("/");
       });
     } else {
@@ -38,7 +47,7 @@ const Navbar = () => {
       </div>
       {user ? (
         <div className="navbar-links">
-          <Link href="/Profile">{user.displayName || user.email}</Link>
+          <Link href="/profile">{user.displayName || user.email}</Link>
           <Link href="/add-product">Add Product</Link>
           <Link href="" onClick={SignOut}>
             LOGOUT
@@ -46,8 +55,8 @@ const Navbar = () => {
         </div>
       ) : (
         <div className="navbar-links">
-          <Link href="/Login">LOGIN</Link>
-          <Link href="/Register">REGISTER</Link>
+          <Link href="/login">LOGIN</Link>
+          <Link href="/register">REGISTER</Link>
         </div>
       )}
     </div>
